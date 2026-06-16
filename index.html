@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free Online Tools Hub Pro</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Poppins,sans-serif}
+
+body{
+background:#f4f8ff;
+transition:0.3s;
+}
+
+.dark{
+background:#0f172a;
+color:#fff;
+}
+
+header{
+background:linear-gradient(135deg,#00c853,#00e676);
+padding:20px;
+text-align:center;
+color:#fff;
+position:sticky;
+top:0;
+}
+
+.search{
+text-align:center;
+padding:15px;
+}
+
+.search input{
+width:90%;
+max-width:500px;
+padding:12px;
+border-radius:30px;
+border:none;
+outline:none;
+}
+
+.tabs{
+display:flex;
+justify-content:center;
+gap:10px;
+flex-wrap:wrap;
+padding:10px;
+}
+
+.tabs button{
+padding:8px 15px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+background:#e8f5e9;
+font-weight:bold;
+}
+
+.tabs button.active{
+background:#00c853;
+color:#fff;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:15px;
+padding:20px;
+}
+
+.card{
+background:#fff;
+padding:15px;
+border-radius:15px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.dark .card{background:#1e293b;color:#fff}
+
+h3{color:#00c853}
+
+input,select,button{
+width:100%;
+padding:10px;
+margin-top:8px;
+border-radius:8px;
+border:1px solid #ddd;
+}
+
+button.calc{
+background:#00c853;
+color:#fff;
+border:none;
+font-weight:bold;
+cursor:pointer;
+}
+
+.result{
+margin-top:10px;
+font-weight:bold;
+font-size:15px;
+}
+
+.mode{
+position:fixed;
+bottom:15px;
+right:15px;
+width:55px;
+height:55px;
+border-radius:50%;
+border:none;
+background:#00c853;
+color:#fff;
+font-size:20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>⚡ Free Online Tools Hub PRO</h2>
+<p>Search + Category System Fixed</p>
+</header>
+
+<div class="search">
+<input id="search" onkeyup="applyFilter()" placeholder="Search tools...">
+
+<div class="tabs">
+<button class="active" onclick="setCat('all',this)">All</button>
+<button onclick="setCat('finance',this)">Finance</button>
+<button onclick="setCat('health',this)">Health</button>
+<button onclick="setCat('utility',this)">Utility</button>
+</div>
+</div>
+
+<div class="container">
+
+<!-- AGE -->
+<div class="card" data-cat="utility">
+<h3>🎂 Age Calculator</h3>
+<input type="date" id="dob">
+<button class="calc" onclick="age()">Calculate</button>
+<div class="result" id="ageRes"></div>
+</div>
+
+<!-- EMI -->
+<div class="card" data-cat="finance">
+<h3>💰 EMI Calculator</h3>
+<input id="loan">
+<input id="rate">
+<input id="time">
+<button class="calc" onclick="emi()">Calculate</button>
+<div class="result" id="emiRes"></div>
+</div>
+
+<!-- CURRENCY -->
+<div class="card" data-cat="finance">
+<h3>💱 Currency</h3>
+<input id="amt">
+<select id="type">
+<option value="inr_usd">INR → USD</option>
+<option value="usd_inr">USD → INR</option>
+</select>
+<button class="calc" onclick="cur()">Convert</button>
+<div class="result" id="curRes"></div>
+</div>
+
+<!-- BMI -->
+<div class="card" data-cat="health">
+<h3>⚖️ BMI</h3>
+<input id="w">
+<input id="h">
+<button class="calc" onclick="bmi()">Calculate</button>
+<div class="result" id="bmiRes"></div>
+</div>
+
+<!-- PERCENT -->
+<div class="card" data-cat="utility">
+<h3>📊 Percentage</h3>
+<input id="total">
+<input id="val">
+<button class="calc" onclick="per()">Calculate</button>
+<div class="result" id="perRes"></div>
+</div>
+
+<!-- DISCOUNT -->
+<div class="card" data-cat="finance">
+<h3>🏷️ Discount</h3>
+<input id="price">
+<input id="disc">
+<button class="calc" onclick="discount()">Calculate</button>
+<div class="result" id="disRes"></div>
+</div>
+
+<!-- GST -->
+<div class="card" data-cat="finance">
+<h3>🧾 GST (18%)</h3>
+<input id="gst">
+<button class="calc" onclick="gst()">Calculate</button>
+<div class="result" id="gstRes"></div>
+</div>
+
+<!-- RANDOM -->
+<div class="card" data-cat="utility">
+<h3>🎲 Random Number</h3>
+<button class="calc" onclick="rand()">Generate</button>
+<div class="result" id="randRes"></div>
+</div>
+
+<!-- SI -->
+<div class="card" data-cat="finance">
+<h3>🏦 Simple Interest</h3>
+<input id="p"><input id="r"><input id="t">
+<button class="calc" onclick="si()">Calculate</button>
+<div class="result" id="siRes"></div>
+</div>
+
+<!-- CI -->
+<div class="card" data-cat="finance">
+<h3>📈 Compound Interest</h3>
+<input id="cp"><input id="cr"><input id="ct">
+<button class="calc" onclick="ci()">Calculate</button>
+<div class="result" id="ciRes"></div>
+</div>
+
+<!-- DATE DIFF -->
+<div class="card" data-cat="utility">
+<h3>📅 Date Difference</h3>
+<input type="date" id="d1">
+<input type="date" id="d2">
+<button class="calc" onclick="dateDiff()">Calculate</button>
+<div class="result" id="dateRes"></div>
+</div>
+
+</div>
+
+<button class="mode" onclick="document.body.classList.toggle('dark')">🌙</button>
+
+<script>
+
+let currentCat="all";
+
+/* CATEGORY */
+function setCat(cat,btn){
+currentCat=cat;
+
+document.querySelectorAll(".tabs button").forEach(b=>b.classList.remove("active"));
+btn.classList.add("active");
+
+applyFilter();
+}
+
+/* SEARCH + CATEGORY TOGETHER */
+function applyFilter(){
+let search=document.getElementById("search").value.toLowerCase();
+
+document.querySelectorAll(".card").forEach(card=>{
+let text=card.innerText.toLowerCase();
+let matchSearch=text.includes(search);
+let matchCat=currentCat=="all" || card.dataset.cat==currentCat;
+
+card.style.display=(matchSearch && matchCat)?"block":"none";
+});
+}
+
+/* AGE FIX */
+function age(){
+let d=new Date(dob.value);
+if(!dob.value){ageRes.innerText="Select DOB";return;}
+
+let t=new Date();
+
+let y=t.getFullYear()-d.getFullYear();
+let m=t.getMonth()-d.getMonth();
+let da=t.getDate()-d.getDate();
+
+if(da<0){
+m--;
+da+=new Date(t.getFullYear(),t.getMonth(),0).getDate();
+}
+if(m<0){
+y--;
+m+=12;
+}
+
+ageRes.innerText=y+" Years "+m+" Months "+da+" Days";
+}
+
+/* EMI */
+function emi(){
+let P=+loan.value;
+let r=+rate.value/1200;
+let n=+time.value;
+emiRes.innerText="₹ "+(P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1)).toFixed(2);
+}
+
+/* CURRENCY */
+function cur(){
+curRes.innerText=type.value=="inr_usd"?"$ "+(amt.value/83).toFixed(2):"₹ "+(amt.value*83).toFixed(2);
+}
+
+/* BMI */
+function bmi(){
+bmiRes.innerText=(w.value/(h.value*h.value)).toFixed(2);
+}
+
+/* PERCENT */
+function per(){
+perRes.innerText=((val.value/total.value)*100).toFixed(2)+"%";
+}
+
+/* DISCOUNT */
+function discount(){
+disRes.innerText="₹ "+(price.value-(price.value*disc.value/100));
+}
+
+/* GST */
+function gst(){
+gstRes.innerText="₹ "+(gst.value*0.18);
+}
+
+/* SI */
+function si(){
+siRes.innerText="₹ "+(p.value*r.value*t.value)/100;
+}
+
+/* CI */
+function ci(){
+ciRes.innerText="₹ "+(cp.value*Math.pow(1+cr.value/100,ct.value));
+}
+
+/* DATE DIFF */
+function dateDiff(){
+let a=new Date(d1.value),b=new Date(d2.value);
+dateRes.innerText=Math.abs((b-a)/(1000*60*60*24))+" Days";
+}
+
+/* RANDOM */
+function rand(){
+randRes.innerText=Math.floor(Math.random()*1000);
+}
+
+</script>
+
+</body>
+</html>
